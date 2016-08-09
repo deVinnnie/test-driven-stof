@@ -1,5 +1,6 @@
 package com.realdolmen.stof;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -86,6 +87,11 @@ public class StofControllerUnitTest {
         });
     }
 
+    @After
+    public void cleanUp(){
+        repoStoffen.clear();
+    }
+
     @Test
     public void testGetStof(){
         // 1. create stof
@@ -138,7 +144,6 @@ public class StofControllerUnitTest {
         controller.updateStof(invalid);
     }
 
-
     @Test(expected = RuntimeException.class)
     public void testUpdateNullStof_throws_Exception(){
         Stof invalid = null;
@@ -147,8 +152,6 @@ public class StofControllerUnitTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testUpdateNonExistingStof_throws_Exception(){
-        repoStoffen.clear();
-
         Stof stof1 = new Stof();
         stof1.setNaam("Stof");
         stof1.setNummer("STOF/1/2/3");
