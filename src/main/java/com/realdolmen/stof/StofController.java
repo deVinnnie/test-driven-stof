@@ -13,7 +13,7 @@ public class StofController {
     @Autowired
     private StofRepository stofRepository;
 
-    @RequestMapping(method= RequestMethod.POST, path="stof/create", consumes="application/son")
+    @RequestMapping(method= RequestMethod.POST, path="stof/create", consumes="application/json")
     public Stof createStof(@RequestBody /* @valid */ Stof stof){
         if(null != stof.getId()){
             throw new RuntimeException("New Stof should have ID");
@@ -33,7 +33,8 @@ public class StofController {
         return true;
     }
 
-    public Stof getStof(Long id){
+    @RequestMapping(method = RequestMethod.GET, path="/stof/{id}")
+    public Stof getStof(@PathVariable Long id){
         return stofRepository.getStof(id);
     }
 
