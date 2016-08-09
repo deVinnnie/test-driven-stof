@@ -1,5 +1,6 @@
 package com.realdolmen.stof;
 
+import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,12 +28,19 @@ public class StofRepository {
         return em.find(Stof.class, stofId);
     }
 
+    @Transactional
     public Stof updateStof(Stof stof){
         em.merge(stof);
         return stof;
     }
 
+    @Transactional
     public void deleteStof(Stof stof){
-        em.remove(stof);
+        em.remove(em.find(Stof.class, stof));
+    }
+
+    @Transactional
+    public void deleteAll(){
+        em.createNativeQuery("DELETE FROM Stof").executeUpdate();
     }
 }
