@@ -35,4 +35,9 @@ public class StofNummerValidatorTest {
     public void testValidateStofNummer_null_value_returns_false(){
         assertEquals(false, validator.validateStofNummer(null));
     }
+
+    @Test
+    public void testValidateStofNummer_empty_value_returns_false(){
+        assertEquals(false, validator.validateStofNummer(""));
+    }
 }
