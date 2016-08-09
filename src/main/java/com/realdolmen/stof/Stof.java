@@ -19,7 +19,7 @@ public class Stof {
     @Size(max=50)
     private String nummer;
 
-
+    //<editor-fold desc="Getters and Setters">
     public Long getId() {
         return id;
     }
@@ -43,4 +43,5 @@ public class Stof {
     public void setNummer(String nummer) {
         this.nummer = nummer;
     }
+    //</editor-fold>
 }

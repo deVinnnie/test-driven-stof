@@ -1,12 +1,14 @@
 package com.realdolmen.stof;
 
-import com.realdolmen.stof.Stof;
 import org.springframework.stereotype.Repository;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
+/**
+ * The StofRepository contains many Stof.
+ * Some are very dangerous and should be treated with care.
+ * Others are mostly harmless.
+ */
 @Repository(value= "stofRepository")
 public class StofRepository {
 
