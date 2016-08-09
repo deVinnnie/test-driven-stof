@@ -27,6 +27,8 @@ public class StofControllerUnitTest {
 
     @Before
     public void setUp(){
+        // Actually: We're just reimplementing the repository.... the hard way.
+        // In real life: use a dummy database and forget the mocking.
         MockitoAnnotations.initMocks(this);
         Mockito.when(stofRepository.createStof(Mockito.any(Stof.class))).thenAnswer(new Answer<Stof>(){
             @Override
@@ -51,6 +53,35 @@ public class StofControllerUnitTest {
                     }
                 }
                 return null;
+            }
+        });
+        /*Mockito.when(stofRepository.deleteStof(Mockito.any(Stof.class))).then(new Answer<Void>() {
+            @Override
+            public Void answer(InvocationOnMock invocationOnMock) throws Throwable {
+                Stof stof = invocationOnMock.getArgumentAt(0, Stof.class);
+                for(int i = 0; i < repoStoffen.size(); i++){
+                    Stof fStof = repoStoffen.get(i);
+
+                    if (fStof.getId().equals(stof.getId())){
+                        repoStoffen.remove(i);
+                        break;
+                    }
+                }
+
+                return null;
+            }
+        });*/
+        Mockito.when(stofRepository.updateStof(Mockito.any(Stof.class))).then(new Answer<Stof>() {
+            @Override
+            public Stof answer(InvocationOnMock invocationOnMock) throws Throwable {
+                Stof update = invocationOnMock.getArgumentAt(0, Stof.class);
+
+                Stof stof = stofRepository.getStof(update.getId());
+
+                stof.setNaam(update.getNaam());
+                stof.setNummer(update.getNummer());
+
+                return stof;
             }
         });
     }
@@ -83,5 +114,22 @@ public class StofControllerUnitTest {
         Assert.assertEquals("Test", stof.getNaam());
         Assert.assertEquals("STOF/1/2/3", stof.getNummer());
         Assert.assertEquals(1, repoStoffen.size());
+    }
+
+    @Test
+    public void testDeleteStof(){
+
+
+
+    }
+
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInvalidStof_throws_Exception(){
+        Stof invalid = new Stof();
+        invalid.setNaam("invalid");
+        invalid.setNummer("foute nummer");
+
+        controller.createStof(invalid);
     }
 }
