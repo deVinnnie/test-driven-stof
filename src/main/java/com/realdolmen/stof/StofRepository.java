@@ -1,6 +1,8 @@
 package com.realdolmen.stof;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,6 +17,7 @@ public class StofRepository {
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public Stof createStof(Stof stof){
         em.persist(stof);
         return stof;
