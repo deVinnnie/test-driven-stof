@@ -118,11 +118,7 @@ public class StofControllerUnitTest {
 
     @Test
     public void testDeleteStof(){
-
-
-
     }
-
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidStof_throws_Exception(){
@@ -131,5 +127,32 @@ public class StofControllerUnitTest {
         invalid.setNummer("foute nummer");
 
         controller.createStof(invalid);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateInvalidStof_throws_Exception(){
+        Stof invalid = new Stof();
+        invalid.setNaam("invalid");
+        invalid.setNummer("foute nummer");
+
+        controller.updateStof(invalid);
+    }
+
+
+    @Test(expected = RuntimeException.class)
+    public void testUpdateNullStof_throws_Exception(){
+        Stof invalid = null;
+        controller.updateStof(invalid);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testUpdateNonExistingStof_throws_Exception(){
+        repoStoffen.clear();
+
+        Stof stof1 = new Stof();
+        stof1.setNaam("Stof");
+        stof1.setNummer("STOF/1/2/3");
+
+        controller.updateStof(stof1);
     }
 }

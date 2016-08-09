@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+/**
+ * StofController is mostly just a Facade class for StofRepository.
+ * It is nevertheless extensively tested in StofControllerUnitTest.
+ */
 public class StofController {
 
     @Autowired
@@ -33,4 +37,13 @@ public class StofController {
         return stofRepository.getStof(id);
     }
 
+    public void updateStof(Stof stof){
+        if(!stof.isValid()){
+            throw new IllegalArgumentException("Not valid!");
+        }
+        if(stofRepository.getStof(stof.getId()) == null){
+            throw new IllegalArgumentException("Stof not found.");
+        }
+        stofRepository.updateStof(stof);
+    }
 }
